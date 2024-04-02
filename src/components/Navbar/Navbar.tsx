@@ -7,7 +7,6 @@ import NavItem from "./NavItem";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
-
   const handleMenu = () => {
     setMenu((prev) => !prev);
   };
