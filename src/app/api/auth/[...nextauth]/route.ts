@@ -22,11 +22,20 @@ const handler: NextAuthOptions = NextAuth({
     Credentials({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        username: {
+          label: "Username",
+          type: "text",
+          placeholder: "example",
+        },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        const user = {
+          id: "1",
+          name: "J Smith",
+          email: "jsmith@example.com",
+          role: "User",
+        };
 
         if (user) {
           return user;
@@ -36,6 +45,22 @@ const handler: NextAuthOptions = NextAuth({
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    maxAge: 30 * 24 * 60 * 60,
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      session.user = token;
+      return session;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
