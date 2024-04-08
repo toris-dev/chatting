@@ -1,13 +1,9 @@
+import prisma from "@/helpers/prismadb";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
-import { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-
-const prisma = new PrismaClient();
-
 const handler: NextAuthOptions = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -51,6 +47,9 @@ const handler: NextAuthOptions = NextAuth({
   jwt: {
     secret: process.env.JWT_SECRET,
     maxAge: 30 * 24 * 60 * 60,
+  },
+  pages: {
+    signIn: "/auth/login",
   },
   callbacks: {
     async jwt({ token, user }) {
