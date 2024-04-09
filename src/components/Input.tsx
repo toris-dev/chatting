@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 

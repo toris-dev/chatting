@@ -1,3 +1,5 @@
+"use client";
+
 import { IconType } from "@react-icons/all-files";
 import React, { FC } from "react";
 

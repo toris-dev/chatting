@@ -1,6 +1,7 @@
-import prisma from "@/helpers/prismadb";
+import prisma from "@/libs/prismadb";
 import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
+
 export async function POST(request: Request) {
   const body = await request.json();
   const { email, name, password } = body;

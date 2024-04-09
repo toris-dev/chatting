@@ -1,12 +1,18 @@
 "use client";
 
+import { User } from "@prisma/client";
 import Link from "next/link";
-import { useState } from "react";
+import { FC, useState } from "react";
 import Logo from "../Logo";
 import NavItem from "./NavItem";
 
-const Navbar = () => {
+type NavBarProps = {
+  currentUser?: User | null;
+};
+
+const Navbar: FC<NavBarProps> = ({ currentUser }) => {
   const [menu, setMenu] = useState(false);
+  console.log(currentUser);
   const handleMenu = () => {
     setMenu((prev) => !prev);
   };
@@ -26,12 +32,12 @@ const Navbar = () => {
           )}
         </div>
         <div className="hidden sm:block">
-          <NavItem />
+          <NavItem currentUser={currentUser} />
         </div>
       </div>
 
       <div className="block sm:hidden">
-        {menu === false ? null : <NavItem mobile />}
+        {menu === false ? null : <NavItem mobile currentUser={currentUser} />}
       </div>
     </nav>
   );
